@@ -63,26 +63,26 @@ def predict():
         return render_template("search_page.html")
 
 
-@app.route('/')
-def predict(value=None):
-    #whenever the predict method is called, we're going
-    #to input the user entered text into the model
-    #and return a prediction. 
-    #This line checks to make sure prediction is only done if the user has given a URL parameter
-    if request.args.get('text_entered'):
-        textData = request.args.get('text_entered')
-        print("text data: ", textData)
-        textDataArray = [textData]
-        print(textDataArray)
-        textTokenized = prepDataForDeepLearning(textDataArray)
-        print(textTokenized)
-        prediction = int((1-np.asscalar(loaded_model.predict(textTokenized)))*100)
-        print(prediction)
-        #return json object to parse on javascript side
-        return jsonify(prediction)
+# @app.route('/')
+# def predict(value=None):
+#     #whenever the predict method is called, we're going
+#     #to input the user entered text into the model
+#     #and return a prediction. 
+#     #This line checks to make sure prediction is only done if the user has given a URL parameter
+#     if request.args.get('text_entered'):
+#         textData = request.args.get('text_entered')
+#         print("text data: ", textData)
+#         textDataArray = [textData]
+#         print(textDataArray)
+#         textTokenized = prepDataForDeepLearning(textDataArray)
+#         print(textTokenized)
+#         prediction = int((1-np.asscalar(loaded_model.predict(textTokenized)))*100)
+#         print(prediction)
+#         #return json object to parse on javascript side
+#         return jsonify(prediction)
 
-    else:
-        return render_template("search_page.html")   
+    # else:
+    #     return render_template("search_page.html")   
 
 
 if __name__ == "__main__":
