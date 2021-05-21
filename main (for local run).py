@@ -45,8 +45,8 @@ print("Loaded Model from disk")
 # Helper function for tokenizing text to feed through pre-trained deep learning network
 def prepDataForDeepLearning(text):
     trainWordFeatures = tokenizer.texts_to_sequences(text)
-    textTokenized = pad_sequences(trainWordFeatures, 201, padding='post')
-    
+    # textTokenized = pad_sequences(trainWordFeatures, 201, padding='post')
+    textTokenized = pad_sequences(trainWordFeatures,maxlen=100) #pads sequences
     return textTokenized
 
 # Load files needed to create proper matrix using tokens from training data
@@ -54,7 +54,7 @@ inputDataTrain = pd.DataFrame(pd.read_csv("train_DrugExp_Text.tsv", "\t", header
 trainText = [item[1] for item in inputDataTrain.values.tolist()]
 trainingLabels = [0 if item[0] == -1 else 1 for item in inputDataTrain.values.tolist()]
 
-VOCABULARY_SIZE=10000
+VOCABULARY_SIZE = 7000
 tokenizer = Tokenizer(num_words=VOCABULARY_SIZE)
 tokenizer.fit_on_texts(trainText)
 
